@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +17,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        UIApplication.shared.setMinimumBackgroundFetchInterval(300)
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (didAllow, error) in
+            if !didAllow {
+                print("Error, no authorization for notifications")
+            }
+        }
+        
         return true
     }
-
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        StorageController().fetchCurrencies { (data) -> (Void) in
+            for element in data {
+                if element.midPrice > 4 {
+                    completionHandler(.newData)
+                    let center = UNUserNotificationCenter.current()
+                    let content = UNMutableNotificationContent()
+                    content.title = "Zmiana kursu waluty"
+                    content.body = "Waluta: \(element.code) - \(element.currency) zmieniła swój kurs ponad zapisany poziom"
+                    content.sound = UNNotificationSound.default()
+                    
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+                    
+                    let request = UNNotificationRequest(identifier: "Notyfikacja", content: content, trigger: trigger)
+                    
+                    center.add(request, withCompletionHandler: { (error) in
+                        if error != nil {
+                            print("error \(String(describing: error)))")
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

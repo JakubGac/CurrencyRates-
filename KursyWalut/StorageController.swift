@@ -58,7 +58,6 @@ class StorageController {
                             break
                         }
                     }
-                    print("Wszystko okej")
                 } else {
                     print("Error: couldn't fetch JSON")
                 }

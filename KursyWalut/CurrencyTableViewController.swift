@@ -36,14 +36,22 @@ class CurrencyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listOfCurrencies.count
+        if listOfCurrencies.isEmpty {
+            return 1
+        } else {
+            return listOfCurrencies.count
+        }
     }
     
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath)
         if let currencyCell = cell as? CurrencyCell {
-            let element = listOfCurrencies[indexPath.row]
-            currencyCell.model = CurrencyCell.Model(name: element.currency, price: String(element.midPrice), code: element.code)
+            if listOfCurrencies.isEmpty {
+                currencyCell.currencyLabel.text = "Brak danych"
+            } else {
+                let element = listOfCurrencies[indexPath.row]
+                currencyCell.model = CurrencyCell.Model(name: element.currency, price: String(element.midPrice), code: element.code)
+            }
         }
         return cell
      }
