@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		277649B720F695290054E3F4 /* StorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277649B620F695290054E3F4 /* StorageController.swift */; };
+		277649B920F695410054E3F4 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277649B820F695410054E3F4 /* CurrencyTableViewController.swift */; };
 		27B2ACBF20F6541A005E6782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2ACBE20F6541A005E6782 /* AppDelegate.swift */; };
 		27B2ACC420F6541A005E6782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B2ACC220F6541A005E6782 /* Main.storyboard */; };
-		27B2ACC720F6541A005E6782 /* KursyWalut.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27B2ACC520F6541A005E6782 /* KursyWalut.xcdatamodeld */; };
 		27B2ACC920F6541D005E6782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B2ACC820F6541D005E6782 /* Assets.xcassets */; };
 		27B2ACCC20F6541D005E6782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B2ACCA20F6541D005E6782 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		277649B620F695290054E3F4 /* StorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageController.swift; sourceTree = "<group>"; };
+		277649B820F695410054E3F4 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		27B2ACBB20F6541A005E6782 /* KursyWalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KursyWalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B2ACBE20F6541A005E6782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27B2ACC320F6541A005E6782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		27B2ACC620F6541A005E6782 /* KursyWalut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KursyWalut.xcdatamodel; sourceTree = "<group>"; };
 		27B2ACC820F6541D005E6782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27B2ACCB20F6541D005E6782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27B2ACCD20F6541D005E6782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				27B2ACBE20F6541A005E6782 /* AppDelegate.swift */,
+				277649B820F695410054E3F4 /* CurrencyTableViewController.swift */,
+				277649B620F695290054E3F4 /* StorageController.swift */,
 				27B2ACC220F6541A005E6782 /* Main.storyboard */,
 				27B2ACC820F6541D005E6782 /* Assets.xcassets */,
 				27B2ACCA20F6541D005E6782 /* LaunchScreen.storyboard */,
 				27B2ACCD20F6541D005E6782 /* Info.plist */,
-				27B2ACC520F6541A005E6782 /* KursyWalut.xcdatamodeld */,
 			);
 			path = KursyWalut;
 			sourceTree = "<group>";
@@ -136,7 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B2ACBF20F6541A005E6782 /* AppDelegate.swift in Sources */,
-				27B2ACC720F6541A005E6782 /* KursyWalut.xcdatamodeld in Sources */,
+				277649B720F695290054E3F4 /* StorageController.swift in Sources */,
+				277649B920F695410054E3F4 /* CurrencyTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,19 +338,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		27B2ACC520F6541A005E6782 /* KursyWalut.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				27B2ACC620F6541A005E6782 /* KursyWalut.xcdatamodel */,
-			);
-			currentVersion = 27B2ACC620F6541A005E6782 /* KursyWalut.xcdatamodel */;
-			path = KursyWalut.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 27B2ACB320F6541A005E6782 /* Project object */;
 }
