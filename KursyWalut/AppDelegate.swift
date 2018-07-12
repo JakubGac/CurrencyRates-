@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let seconds = UserDefaults.standard.integer(forKey: "seconds")
         if seconds == 0 {
-            // defaultowo na 5 minut
             UIApplication.shared.setMinimumBackgroundFetchInterval(300)
         } else {
             UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(seconds))
@@ -30,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        // defaultowe ustawienia dla granicznych wartości kursu, waluta SDR > 5
         if UserDefaults.standard.object(forKey: "currency") as? NSDictionary == nil {
             let dictionary: NSDictionary = [
                 "currencyName": "SDR (MFW)",
