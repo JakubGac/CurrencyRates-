@@ -92,7 +92,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 extension String  {
     var isNumber: Bool {
         return Double(self) != nil
-        
     }
 }
 
