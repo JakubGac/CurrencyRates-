@@ -23,7 +23,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
-        
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -57,7 +56,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     let dictionary: NSDictionary = [
                         DictionaryKeys.currencyName.name(): (listOfCurrencies[pickedRow]),
                         DictionaryKeys.limitSign.name(): segmentedControl.selectedSegmentIndex,
-                        DictionaryKeys.limitValue.name(): Double(currencyTextFIeld.text!)!
+                        DictionaryKeys.limitValue.name(): number
                     ]
                     UserDefaults.standard.set(dictionary, forKey: DictionaryKeys.currencyDictionaryKey.name())
                     popsTheAlert(title: "OK", message: "Zapisano prawidłowo")

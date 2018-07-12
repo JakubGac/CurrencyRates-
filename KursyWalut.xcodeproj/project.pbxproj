@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		27290CC220F6BA68005E5CF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27290CC120F6BA68005E5CF8 /* SettingsViewController.swift */; };
 		27342A0A20F7488600F68553 /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27342A0920F7488600F68553 /* FetchData.swift */; };
+		27342A0C20F74E9900F68553 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27342A0B20F74E9900F68553 /* Notification.swift */; };
 		277649B720F695290054E3F4 /* StorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277649B620F695290054E3F4 /* StorageController.swift */; };
 		277649B920F695410054E3F4 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277649B820F695410054E3F4 /* CurrencyTableViewController.swift */; };
 		27B2ACBF20F6541A005E6782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2ACBE20F6541A005E6782 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		27290CC120F6BA68005E5CF8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		27342A0920F7488600F68553 /* FetchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchData.swift; sourceTree = "<group>"; };
+		27342A0B20F74E9900F68553 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		277649B620F695290054E3F4 /* StorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageController.swift; sourceTree = "<group>"; };
 		277649B820F695410054E3F4 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		27B2ACBB20F6541A005E6782 /* KursyWalut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KursyWalut.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,9 +64,10 @@
 			children = (
 				27B2ACBE20F6541A005E6782 /* AppDelegate.swift */,
 				277649B820F695410054E3F4 /* CurrencyTableViewController.swift */,
+				27290CC120F6BA68005E5CF8 /* SettingsViewController.swift */,
 				277649B620F695290054E3F4 /* StorageController.swift */,
 				27342A0920F7488600F68553 /* FetchData.swift */,
-				27290CC120F6BA68005E5CF8 /* SettingsViewController.swift */,
+				27342A0B20F74E9900F68553 /* Notification.swift */,
 				27B2ACC220F6541A005E6782 /* Main.storyboard */,
 				27B2ACC820F6541D005E6782 /* Assets.xcassets */,
 				27B2ACCA20F6541D005E6782 /* LaunchScreen.storyboard */,
@@ -151,6 +154,7 @@
 			files = (
 				27B2ACBF20F6541A005E6782 /* AppDelegate.swift in Sources */,
 				277649B720F695290054E3F4 /* StorageController.swift in Sources */,
+				27342A0C20F74E9900F68553 /* Notification.swift in Sources */,
 				27342A0A20F7488600F68553 /* FetchData.swift in Sources */,
 				277649B920F695410054E3F4 /* CurrencyTableViewController.swift in Sources */,
 				27290CC220F6BA68005E5CF8 /* SettingsViewController.swift in Sources */,

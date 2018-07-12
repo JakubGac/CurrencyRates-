@@ -57,7 +57,6 @@ class CurrencyTableViewController: UITableViewController {
      }
     
      // MARK: - Navigation
-    
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsSegue" {
             if let nvc = segue.destination as? SettingsViewController {
@@ -79,7 +78,6 @@ class CurrencyCell: UITableViewCell {
             guard let model = model else {
                 return
             }
-            
             currencyLabel.text = "\(model.currencyName): 1 PLN = \(model.price) \(model.code)"
         }
     }
