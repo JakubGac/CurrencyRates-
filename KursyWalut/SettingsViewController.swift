@@ -37,7 +37,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             if text.isNumber {
                 let number = Int(text)!
                 if number > 0 {
-                    UserDefaults.standard.set(number, forKey: "seconds")
+                    UserDefaults.standard.set(number, forKey: DictionaryKeys.secondsDictionaryKey.name())
                     popsTheAlert(title: "OK", message: "Zapisano prawidłowo")
                 } else {
                     popsTheAlert(title: "Błąd", message: "Wprowadziłeś niepoprawną liczbę")
@@ -55,11 +55,11 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 let number = Double(text)!
                 if number > 0 {
                     let dictionary: NSDictionary = [
-                        "currencyName": (listOfCurrencies[pickedRow]),
-                        "sign": segmentedControl.selectedSegmentIndex,
-                        "number": Double(currencyTextFIeld.text!)!
+                        DictionaryKeys.currencyName.name(): (listOfCurrencies[pickedRow]),
+                        DictionaryKeys.limitSign.name(): segmentedControl.selectedSegmentIndex,
+                        DictionaryKeys.limitValue.name(): Double(currencyTextFIeld.text!)!
                     ]
-                    UserDefaults.standard.set(dictionary, forKey: "currency")
+                    UserDefaults.standard.set(dictionary, forKey: DictionaryKeys.currencyDictionaryKey.name())
                     popsTheAlert(title: "OK", message: "Zapisano prawidłowo")
                 } else {
                     popsTheAlert(title: "Błąd", message: "Wprowadziłeś niepoprawną liczbę")

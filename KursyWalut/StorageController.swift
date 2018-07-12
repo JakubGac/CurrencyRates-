@@ -20,6 +20,28 @@ struct Currency {
     }
 }
 
+enum DictionaryKeys {
+    case currencyName
+    case code
+    case midPrice
+    case currencyDictionaryKey
+    case secondsDictionaryKey
+    case limitValue
+    case limitSign
+    
+    func name() -> String {
+        switch self {
+        case .currencyName: return "currencyName"
+        case .code: return "code"
+        case .midPrice: return "mid"
+        case .currencyDictionaryKey: return "currency"
+        case .secondsDictionaryKey: return "seconds"
+        case .limitValue: return "limitValue"
+        case .limitSign: return "limitSign"
+        }
+    }
+}
+
 class StorageController {
     
     private struct Addresses {

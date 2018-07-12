@@ -16,12 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let seconds = UserDefaults.standard.integer(forKey: "seconds")
-        if seconds == 0 {
-            UIApplication.shared.setMinimumBackgroundFetchInterval(300)
-        } else {
-            UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(seconds))
-        }
+        FetchData().setSeconds()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (didAllow, error) in
             if !didAllow {
@@ -29,58 +24,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        if UserDefaults.standard.object(forKey: "currency") as? NSDictionary == nil {
-            let dictionary: NSDictionary = [
-                "currencyName": "SDR (MFW)",
-                "sign": 1,
-                "number": 5
-            ]
-            UserDefaults.standard.set(dictionary, forKey: "currency")
-        }
+        FetchData().setCurrencyLimit()
         
         return true
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        guard let currencyData = UserDefaults.standard.object(forKey: "currency") as? NSDictionary else {
-            return
-        }
-        
-        guard let currencyName = currencyData["currencyName"] as? String,
-            let sign = currencyData["sign"] as? Int,
-            let number = currencyData["number"] as? Double else {
-                return
-        }
-        
-        var newData = false
-        var currencyNameForNotification = ""
-        
-        StorageController().fetchCurrencies { (data) -> (Void) in
-            for element in data {
-                switch sign {
-                case 0:
-                    if element.midPrice < number && element.currencyName == currencyName {
-                        newData = true
-                        currencyNameForNotification = element.currencyName
-                    }
-                    break
-                case 1:
-                    if element.midPrice > number && element.currencyName == currencyName {
-                        newData = true
-                        currencyNameForNotification = element.currencyName
-                    }
-                    break
-                default:
-                    break
-                }
-            }
-            
-            if newData {
+        FetchData().fetchCurrencyLimitInBackground { (status, currencyName) -> (Void) in
+            if status {
                 completionHandler(.newData)
                 let center = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()
                 content.title = "Zmiana kursu waluty"
-                content.body = "Waluta: \(currencyNameForNotification) zmieniła swój kurs"
+                content.body = "Waluta: \(currencyName) zmieniła swój kurs"
                 content.sound = UNNotificationSound.default()
                 
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
@@ -92,11 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         print("error \(String(describing: error)))")
                     }
                 }
-            } else {
-                completionHandler(.noData)
             }
+            completionHandler(.noData)
+            
         }
-        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
