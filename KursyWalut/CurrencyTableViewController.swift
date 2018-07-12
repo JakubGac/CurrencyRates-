@@ -50,22 +50,25 @@ class CurrencyTableViewController: UITableViewController {
                 currencyCell.currencyLabel.text = "Brak danych"
             } else {
                 let element = listOfCurrencies[indexPath.row]
-                currencyCell.model = CurrencyCell.Model(name: element.currency, price: String(element.midPrice), code: element.code)
+                currencyCell.model = CurrencyCell.Model(name: element.currencyName, price: String(element.midPrice), code: element.code)
             }
         }
         return cell
      }
     
-    /*
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "settingsSegue" {
+            if let nvc = segue.destination as? SettingsViewController {
+                var listOfCurrenciesNames: [String] = []
+                for element in listOfCurrencies {
+                    listOfCurrenciesNames.append(element.currencyName)
+                }
+                nvc.listOfCurrencies = listOfCurrenciesNames
+            }
+        }
+     }
 }
 
 class CurrencyCell: UITableViewCell {
@@ -77,7 +80,7 @@ class CurrencyCell: UITableViewCell {
                 return
             }
             
-            currencyLabel.text = model.currencyName + ": 1 PLN = \(model.price) " + model.code
+            currencyLabel.text = "\(model.currencyName): 1 PLN = \(model.price) \(model.code)"
         }
     }
 }

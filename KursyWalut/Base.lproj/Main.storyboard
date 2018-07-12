@@ -6,10 +6,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Currency Table View Controller-->
         <scene sceneID="YIT-tS-LCo">
             <objects>
                 <tableViewController id="Ckr-fz-KUi" customClass="CurrencyTableViewController" customModule="KursyWalut" customModuleProvider="target" sceneMemberID="viewController">
@@ -44,11 +45,99 @@
                             <outlet property="delegate" destination="Ckr-fz-KUi" id="p4u-Lg-rXL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="SiG-FW-V2p"/>
+                    <navigationItem key="navigationItem" id="SiG-FW-V2p">
+                        <barButtonItem key="backBarButtonItem" title="Powrót" id="3WJ-6V-sAs"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edycja" id="kFX-Wn-6cP">
+                            <connections>
+                                <segue destination="C1x-We-Uit" kind="show" identifier="settingsSegue" id="aDn-Ke-1Sv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMO-j8-CNs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1213.5999999999999" y="-47.226386806596707"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="WKi-eI-Cq8">
+            <objects>
+                <viewController id="C1x-We-Uit" customClass="SettingsViewController" customModule="KursyWalut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kIn-NY-sh7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="np 5" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-Ha-syQ">
+                                <rect key="frame" x="87" y="166" width="201" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Podaj co ile sekund aplikacja ma sprawdzać dane w tle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPE-u6-oMo">
+                                <rect key="frame" x="46" y="89" width="282" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ustaw warunek granicznych wartości dla kursu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyd-w8-Lv6">
+                                <rect key="frame" x="46" y="255" width="282" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgQ-dF-RzN">
+                                <rect key="frame" x="87" y="204" width="201" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Zapisz"/>
+                                <connections>
+                                    <action selector="saveSecondsButton:" destination="C1x-We-Uit" eventType="touchUpInside" id="0Tk-Gk-FDW"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="np 4.12" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jl2-qJ-g7h">
+                                <rect key="frame" x="87" y="368" width="201" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lpd-rM-WJT">
+                                <rect key="frame" x="87" y="332" width="201" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Mniej niż"/>
+                                    <segment title="Więcej niż"/>
+                                </segments>
+                            </segmentedControl>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ny-qa-e3U">
+                                <rect key="frame" x="0.0" y="406" width="375" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6o-uo-kUL">
+                                <rect key="frame" x="93" y="576" width="201" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Zapisz"/>
+                                <connections>
+                                    <action selector="saveCurrencyButton:" destination="C1x-We-Uit" eventType="touchUpInside" id="7lc-Qi-WQf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="guS-ob-Jpo"/>
+                    </view>
+                    <connections>
+                        <outlet property="currencyTextFIeld" destination="jl2-qJ-g7h" id="EL2-bd-O9X"/>
+                        <outlet property="pickerView" destination="4Ny-qa-e3U" id="DGR-oc-U7L"/>
+                        <outlet property="saveSecondsTextField" destination="AAD-Ha-syQ" id="bA0-RN-nmY"/>
+                        <outlet property="segmentedControl" destination="Lpd-rM-WJT" id="Z6k-B6-akI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sNf-Z9-JDJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2104.8000000000002" y="-47.226386806596707"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yGz-Ey-Qec">

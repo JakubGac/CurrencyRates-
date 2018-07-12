@@ -15,9 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        UIApplication.shared.setMinimumBackgroundFetchInterval(300)
+        let seconds = UserDefaults.standard.integer(forKey: "seconds")
+        if seconds == 0 {
+            // defaultowo na 5 minut
+            UIApplication.shared.setMinimumBackgroundFetchInterval(300)
+        } else {
+            UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(seconds))
+        }
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { (didAllow, error) in
             if !didAllow {
@@ -25,32 +30,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        // defaultowe ustawienia dla granicznych wartości kursu, waluta SDR > 5
+        if UserDefaults.standard.object(forKey: "currency") as? NSDictionary == nil {
+            let dictionary: NSDictionary = [
+                "currencyName": "SDR (MFW)",
+                "sign": 1,
+                "number": 5
+            ]
+            UserDefaults.standard.set(dictionary, forKey: "currency")
+        }
+        
         return true
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        guard let currencyData = UserDefaults.standard.object(forKey: "currency") as? NSDictionary else {
+            return
+        }
+        
+        guard let currencyName = currencyData["currencyName"] as? String,
+            let sign = currencyData["sign"] as? Int,
+            let number = currencyData["number"] as? Double else {
+                return
+        }
+        
+        var newData = false
+        var currencyNameForNotification = ""
+        
         StorageController().fetchCurrencies { (data) -> (Void) in
             for element in data {
-                if element.midPrice > 4 {
-                    completionHandler(.newData)
-                    let center = UNUserNotificationCenter.current()
-                    let content = UNMutableNotificationContent()
-                    content.title = "Zmiana kursu waluty"
-                    content.body = "Waluta: \(element.code) - \(element.currency) zmieniła swój kurs ponad zapisany poziom"
-                    content.sound = UNNotificationSound.default()
-                    
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-                    
-                    let request = UNNotificationRequest(identifier: "Notyfikacja", content: content, trigger: trigger)
-                    
-                    center.add(request, withCompletionHandler: { (error) in
-                        if error != nil {
-                            print("error \(String(describing: error)))")
-                        }
-                    })
+                switch sign {
+                case 0:
+                    if element.midPrice < number && element.currencyName == currencyName {
+                        newData = true
+                        currencyNameForNotification = element.currencyName
+                    }
+                    break
+                case 1:
+                    if element.midPrice > number && element.currencyName == currencyName {
+                        newData = true
+                        currencyNameForNotification = element.currencyName
+                    }
+                    break
+                default:
+                    break
                 }
             }
+            
+            if newData {
+                completionHandler(.newData)
+                let center = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "Zmiana kursu waluty"
+                content.body = "Waluta: \(currencyNameForNotification) zmieniła swój kurs"
+                content.sound = UNNotificationSound.default()
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+                
+                let request = UNNotificationRequest(identifier: "Notyfikacja", content: content, trigger: trigger)
+                
+                center.add(request) { (error) in
+                    if error != nil {
+                        print("error \(String(describing: error)))")
+                    }
+                }
+            } else {
+                completionHandler(.noData)
+            }
         }
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -65,6 +113,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        if let navigationController = window?.rootViewController as? UINavigationController {
+            if let currencyView = navigationController.viewControllers.first as? CurrencyTableViewController {
+                currencyView.viewWillAppear(true)
+            }
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

@@ -8,6 +8,18 @@
 
 import Foundation
 
+struct Currency {
+    let currencyName: String
+    let code: String
+    let midPrice: Double
+    
+    init(currency: String, code: String, midPrice: Double) {
+        self.currencyName = currency
+        self.code = code
+        self.midPrice = midPrice
+    }
+}
+
 class StorageController {
     
     private struct Addresses {
@@ -67,17 +79,5 @@ class StorageController {
             }
         }
         task.resume()
-    }
-}
-
-struct Currency {
-    let currency: String
-    let code: String
-    let midPrice: Double
-    
-    init(currency: String, code: String, midPrice: Double) {
-        self.currency = currency
-        self.code = code
-        self.midPrice = midPrice
     }
 }
